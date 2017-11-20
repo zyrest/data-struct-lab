@@ -3,5 +3,5 @@ project(learn)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp list/linear_list.h list/array_list.h list/chain_list.h experments/one.cpp experments/two.h)
+set(SOURCE_FILES main.cpp list/linear_list.h list/array_list.h list/chain_list.h experments/one.cpp experments/two.h matrix/tridiagonal_matrix.h matrix/lowdiagonal_matrix.h)
 add_executable(learn ${SOURCE_FILES})

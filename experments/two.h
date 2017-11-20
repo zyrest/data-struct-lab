@@ -12,7 +12,6 @@ using namespace std;
 
 template<class T>
 class Sorts {
-
 public:
     void selectSort(T *arr, int len) {
         cout << "进入选择排序，目前元素顺序为 ：" << endl;

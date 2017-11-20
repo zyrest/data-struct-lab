@@ -3,11 +3,13 @@
 #include "list/array_list.h"
 #include "./experments/two.h"
 #include "./list/chain_list.h"
+#include "./matrix/tridiagonal_matrix.h"
 
 void testArrayList();
 void testChild();
 void testAllSort();
 void testChainList();
+void testTridiagonalMatrix();
 
 using namespace std;
 
@@ -21,8 +23,20 @@ int main() {
 //    auto *iSort = new Sorts<int>();
 //    iSort->quickSort(arr, len);
 
-    testChainList();
+//    testChainList();
+
+    testTridiagonalMatrix();
     return 0;
+}
+
+void testTridiagonalMatrix() {
+    TridiagonalMatrix<int> matrix(5);
+    int v = 66;
+    matrix.store(0,0,v);
+    matrix.store(0,1,v);
+    matrix.store(1,0,v);
+    matrix.store(3,3,v);
+    matrix.output();
 }
 
 void testChainList() {
@@ -38,44 +52,43 @@ void testChainList() {
     a = 88;
 
     list->reverse();
-//    list->insert(6, 56789);
     list->output(cout);
 }
 
-//void testArrayList() {
-//    //使用构造方法构造两个list
-//    auto list1 = new array_list<int>(11);
-//    array_list<double> list2(50);
-//
-//    //使用缺省值构造list
-//    array_list<long> list3;
-//
-//    //使用复制构造方法构造list
-//    array_list<long> list4(list3);
-//
-//    array_list<int> one(10);
-//    array_list<int> two(55);
-//
-//    two.append(0);
-//    for (int i = 0; i < 10; ++i) {
-//        one.append(2*i);
-//        two.append(2*i+1);
-//    }
-//    two.append(55);
-//
-//    array_list<int> three = one.merge(one, two);
-//    for (int j = 0; j < three.getLength(); ++j) {
-//        cout << three.find(j) << endl;
-//    }
-//
-//    for (int i = 0; i < 11; ++i) {
-//        list1->append(i);
-//    }
-//    for (int j = 0; j < 11; ++j) {
-//        cout << list1->find(j) << endl;
-//    }
-//    list1->reverse();
-//    for (int k = 0; k < 11; ++k) {
-//        cout << list1->find(k) << endl;
-//    }
-//}
+void testArrayList() {
+    //使用构造方法构造两个list
+    auto list1 = new ArrayList<int>(11);
+    ArrayList<double> list2(50);
+
+    //使用缺省值构造list
+    ArrayList<long> list3;
+
+    //使用复制构造方法构造list
+    ArrayList<long> list4(list3);
+
+    ArrayList<int> one(10);
+    ArrayList<int> two(55);
+
+    two.append(0);
+    for (int i = 0; i < 10; ++i) {
+        one.append(2*i);
+        two.append(2*i+1);
+    }
+    two.append(55);
+
+    ArrayList<int> three = one.merge(one, two);
+    for (int j = 0; j < three.getLength(); ++j) {
+        cout << three.get(j) << endl;
+    }
+
+    for (int i = 0; i < 11; ++i) {
+        list1->append(i);
+    }
+    for (int j = 0; j < 11; ++j) {
+        cout << list1->get(j) << endl;
+    }
+    list1->reverse();
+    for (int k = 0; k < 11; ++k) {
+        cout << list1->get(k) << endl;
+    }
+}

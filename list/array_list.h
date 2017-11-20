@@ -8,7 +8,7 @@
 #include <sstream>
 #include "linear_list.h"
 #include "iostream"
-#include "my_exception.h"
+#include "../exception/my_exception.h"
 
 using namespace std;
 
