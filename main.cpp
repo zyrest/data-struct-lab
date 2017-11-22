@@ -4,29 +4,19 @@
 #include "./experments/two.h"
 #include "./list/chain_list.h"
 #include "./matrix/tridiagonal_matrix.h"
-
-void testArrayList();
-void testChild();
-void testAllSort();
-void testChainList();
-void testTridiagonalMatrix();
+#include "./matrix/lowdiagonal_matrix.h"
 
 using namespace std;
 
-int main() {
-//    testChild();
-//    testAllSort();
-
-//    int arr[] = {54,43,22,112,3,82,7,9,77099,99,785,336};
-//    int len = sizeof(arr) / sizeof(arr[0]);
-//
-//    auto *iSort = new Sorts<int>();
-//    iSort->quickSort(arr, len);
-
-//    testChainList();
-
-    testTridiagonalMatrix();
-    return 0;
+void testLow() {
+    LowdiagonalMatrix<int> matrix(5);
+    int v = 99;
+    matrix.store(0, 0, v);
+    matrix.store(1, 1, v);
+    matrix.store(2, 2, v);
+    matrix.store(3, 3, v);
+    matrix.store(4, 4, v);
+    matrix.output();
 }
 
 void testTridiagonalMatrix() {
@@ -92,3 +82,20 @@ void testArrayList() {
         cout << list1->get(k) << endl;
     }
 }
+
+int main() {
+//    testChild();
+//    testAllSort();
+
+//    int arr[] = {54,43,22,112,3,82,7,9,77099,99,785,336};
+//    int len = sizeof(arr) / sizeof(arr[0]);
+//
+//    auto *iSort = new Sorts<int>();
+//    iSort->quickSort(arr, len);
+
+    testLow();
+    return 0;
+}
+
+
+
