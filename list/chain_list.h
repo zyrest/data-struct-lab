@@ -133,7 +133,7 @@ public:
         listSize++;
     }
 
-    void reverse() override {
+    void reverse() {
         if (listSize <= 1) return;
 
         ChainNode<T> *pre, *now, *next_;
@@ -148,7 +148,7 @@ public:
         firstNode = pre;
     }
 
-    void output(ostream &out) const override {
+    void output(ostream &out) const  {
         for (int i = 0; i < listSize; ++i)
             out << get(i) << " ";
     }

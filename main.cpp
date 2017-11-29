@@ -5,6 +5,8 @@
 #include "./list/chain_list.h"
 #include "./matrix/tridiagonal_matrix.h"
 #include "./matrix/lowdiagonal_matrix.h"
+#include "matrix/sparse_matrix.h"
+#include "stack/arrayStack.h"
 
 using namespace std;
 
@@ -45,41 +47,80 @@ void testChainList() {
     list->output(cout);
 }
 
-void testArrayList() {
-    //使用构造方法构造两个list
-    auto list1 = new ArrayList<int>(11);
-    ArrayList<double> list2(50);
+//void testArrayList() {
+//    //使用构造方法构造两个list
+//    auto list1 = new ArrayList<int>(11);
+//    ArrayList<double> list2(50);
+//
+//    //使用缺省值构造list
+//    ArrayList<long> list3;
+//
+//    //使用复制构造方法构造list
+//    ArrayList<long> list4(list3);
+//
+//    ArrayList<int> one(10);
+//    ArrayList<int> two(55);
+//
+//    two.append(0);
+//    for (int i = 0; i < 10; ++i) {
+//        one.append(2*i);
+//        two.append(2*i+1);
+//    }
+//    two.append(55);
+//
+//    ArrayList<int> three = one.merge(one, two);
+//    for (int j = 0; j < three.getLength(); ++j) {
+//        cout << three.get(j) << endl;
+//    }
+//
+//    for (int i = 0; i < 11; ++i) {
+//        list1->append(i);
+//    }
+//    for (int j = 0; j < 11; ++j) {
+//        cout << list1->get(j) << endl;
+//    }
+//    list1->reverse();
+//    for (int k = 0; k < 11; ++k) {
+//        cout << list1->get(k) << endl;
+//    }
+//}
 
-    //使用缺省值构造list
-    ArrayList<long> list3;
+void testSparse() {
+    auto *matrix = new SparseMatrix<int>(5,5);
+    int v = 666;
+    matrix->store(3,4,v);
+    matrix->store(2,3,v);
+    matrix->store(1,2,v);
+    matrix->store(0,1,v);
+    matrix->store(0,0,v);
+    matrix->output();
+    cout << "\n" << endl;
+    matrix->transpose();
+    matrix->output();
 
-    //使用复制构造方法构造list
-    ArrayList<long> list4(list3);
+//    auto *a = new SparseMatrix<int>(5,5);
+//    int q = 111;
+//    a->store(3,4,q);
+//    a->store(2,3,q);
+//    a->store(1,2,q);
+//    a->store(0,1,q);
+//    a->store(0,0,q);
+//    a->store(1,0,q);
+//
+//    matrix->add(*a);
+//    cout << "\n" << endl;
+//    matrix->output();
+}
 
-    ArrayList<int> one(10);
-    ArrayList<int> two(55);
-
-    two.append(0);
-    for (int i = 0; i < 10; ++i) {
-        one.append(2*i);
-        two.append(2*i+1);
-    }
-    two.append(55);
-
-    ArrayList<int> three = one.merge(one, two);
-    for (int j = 0; j < three.getLength(); ++j) {
-        cout << three.get(j) << endl;
-    }
-
-    for (int i = 0; i < 11; ++i) {
-        list1->append(i);
-    }
-    for (int j = 0; j < 11; ++j) {
-        cout << list1->get(j) << endl;
-    }
-    list1->reverse();
-    for (int k = 0; k < 11; ++k) {
-        cout << list1->get(k) << endl;
+void testArrayStack() {
+    ArrayStack<int> stack(20);
+    stack.pop();
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.push(4);
+    while (! stack.isEmpty()) {
+        cout << stack.pop() << endl;
     }
 }
 
@@ -93,7 +134,7 @@ int main() {
 //    auto *iSort = new Sorts<int>();
 //    iSort->quickSort(arr, len);
 
-    testLow();
+    testArrayStack();
     return 0;
 }
 

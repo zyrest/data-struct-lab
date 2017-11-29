@@ -14,9 +14,19 @@ public:
     IllegalIndex(string meg) : exception() { }
 };
 
+class IllegalInput : public exception {
+public:
+    IllegalInput(string meg) : exception() { }
+};
+
 class NoSuchElement : public exception {
 public:
     NoSuchElement(string meg) : exception() { }
+};
+
+class Empty : public exception {
+public:
+    Empty(string meg) : exception() { }
 };
 
 class my_exception {

@@ -55,7 +55,7 @@ public:
 
     T& remove(int key) {
         checkIndex(key);
-        T value = elements[key];
+        T &value = elements[key];
 
         for (int i = key+1; i < length; i++) {
             elements[i-1] = elements[i];
@@ -87,7 +87,7 @@ public:
         elements[length++] = value;
     }
 
-    void reverse() override {
+    void reverse() {
         int half = length / 2;
         for (int i = 0; i < half; i++) {
             auto *tmp = new T;
@@ -98,10 +98,10 @@ public:
         }
     }
 
-    void output(ostream &out) const {
-        for (int i = 0; i < length; ++i)
-            out << elements[i] << " ";
-    }
+//    void output(ostream &out) const {
+//        for (int i = 0; i < length; ++i)
+//            out << elements[i] << " ";
+//    }
 
 //    ostream& operator<<(ostream& out, const ArrayList<T>& x) {
 //        x.output(out);

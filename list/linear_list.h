@@ -20,8 +20,8 @@ public:
     virtual T& remove(int key) = 0;
     virtual void insert(int index, const T& value) = 0;
     virtual void append(const T& value) = 0;
-    virtual void output(ostream& out) const = 0;
-    virtual void reverse() = 0;
+//    virtual void output(ostream& out) const = 0;
+//    virtual void reverse() = 0;
 };
 
 #endif //LEARN_LINEARLIST_H
