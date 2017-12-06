@@ -13,14 +13,15 @@ public:
     explicit ArrayQueue(int init = 10) {
         queue = new T[init];
         queueLength = init;
-        qFront = qBack = -1;
+        qFront = -1;
+        qBack = 0;
     }
     bool isEmpty() const override {
-        return qFront == qBack;
+        return qFront + 1 == qBack;
     }
 
     int getSize() const override {
-        return (qBack - qFront) % queueLength;
+        return (qBack - qFront - 1) % queueLength;
     }
 
     T &front() override {

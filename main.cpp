@@ -7,8 +7,11 @@
 #include "./matrix/lowdiagonal_matrix.h"
 #include "matrix/sparse_matrix.h"
 #include "stack/arrayStack.h"
+#include "dict/hash_table.h"
 
 using namespace std;
+void caculate(const char* inputs, int len);
+void mazePath();
 
 void testLow() {
     LowdiagonalMatrix<int> matrix(5);
@@ -124,6 +127,20 @@ void testArrayStack() {
     }
 }
 
+void testCal() {
+    char inp[] = "2+3*(4+5)-6/3";
+    int len = 13;
+    caculate(inp, len);
+}
+
+void testLinearHash() {
+    LinearHashTable<int> table(916);
+    for (int i = 1; i <= 500; ++i) {
+        table.insert(i*32, i+1);
+    }
+
+    cout << table.find(32)->value << endl;
+}
 int main() {
 //    testChild();
 //    testAllSort();
@@ -134,7 +151,6 @@ int main() {
 //    auto *iSort = new Sorts<int>();
 //    iSort->quickSort(arr, len);
 
-    testArrayStack();
     return 0;
 }
 

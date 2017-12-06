@@ -29,6 +29,11 @@ public:
     Empty(string meg) : exception() { }
 };
 
+class Full : public exception {
+public:
+    Full(string meg) : exception() { }
+};
+
 class my_exception {
 
 };

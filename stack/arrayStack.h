@@ -41,6 +41,12 @@ public:
         stack[++stackTop] = element;
     }
 
+    void output() {
+        for (int i = 0; i <= stackTop; ++i) {
+            cout << stack[i] << " ";
+        }
+        cout << endl;
+    }
 private:
     int stackTop;
     int arrayLength;
