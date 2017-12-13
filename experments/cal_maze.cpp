@@ -53,7 +53,7 @@ int doCal(int one, char mid, int two) {
 }
 
 void caculate(const char* inputs, int len) {
-    cout << "ĞèÒª¼ÆËãµÄ±í´ïÊ½Îª:" << inputs << endl;
+    cout << "éœ€è¦è®¡ç®—çš„è¡¨è¾¾å¼ä¸º:" << inputs << endl;
     symp['('] = 0;
     symp[')'] = 0;
     symp['+'] = 1;
@@ -65,17 +65,17 @@ void caculate(const char* inputs, int len) {
     ArrayStack<char> sy(len);
     for (int i = 0; i < len; ++i) {
         char ele = inputs[i];
-        if (getNumber(ele) != -1) nums.push(getNumber(ele)); //Èç¹ûÊÇÊı×Ö£¬Ñ¹ÈëÊı×ÖÕ»
+        if (getNumber(ele) != -1) nums.push(getNumber(ele)); //å¦‚æœæ˜¯æ•°å­—ï¼Œå‹å…¥æ•°å­—æ ˆ
         else {
-            if (sy.isEmpty()) sy.push(ele); //·ûºÅÕ»Îª¿Õ£¬Ö±½ÓÑ¹Èë
-            else if (ele == '(') sy.push(ele); //µ±ÊÇ×óÀ¨ºÅÊ±£¬²»ÅĞ¶ÏÆäÓÅÏÈ¼¶£¬Ö±½ÓÑ¹Èë
-            else { //ÅĞ¶ÏÓÅÏÈ¼¶
-                if (symp[ele] > symp[sy.top()]) sy.push(ele); //ÓÅÏÈ¼¶¸ßÓÚÕ»¶¥ÔªËØ
+            if (sy.isEmpty()) sy.push(ele); //ç¬¦å·æ ˆä¸ºç©ºï¼Œç›´æ¥å‹å…¥
+            else if (ele == '(') sy.push(ele); //å½“æ˜¯å·¦æ‹¬å·æ—¶ï¼Œä¸åˆ¤æ–­å…¶ä¼˜å…ˆçº§ï¼Œç›´æ¥å‹å…¥
+            else { //åˆ¤æ–­ä¼˜å…ˆçº§
+                if (symp[ele] > symp[sy.top()]) sy.push(ele); //ä¼˜å…ˆçº§é«˜äºæ ˆé¡¶å…ƒç´ 
 
-                else { //ÓÅÏÈ¼¶µÈÓÚ»òĞ¡ÓÚÕ»¶¥ÔªËØ£¬µ¯³öËùÓĞ·ûºÅ£¬½øĞĞÔËËã
+                else { //ä¼˜å…ˆçº§ç­‰äºæˆ–å°äºæ ˆé¡¶å…ƒç´ ï¼Œå¼¹å‡ºæ‰€æœ‰ç¬¦å·ï¼Œè¿›è¡Œè¿ç®—
                     while (! sy.isEmpty()) {
                         char mid = sy.pop();
-                        if (mid == '(') break; //Èç¹ûÓöµ½×óÀ¨ºÅ£¬Í£Ö¹µ¯Õ»
+                        if (mid == '(') break; //å¦‚æœé‡åˆ°å·¦æ‹¬å·ï¼Œåœæ­¢å¼¹æ ˆ
 
                         int two = nums.pop();
                         int one = nums.pop();
@@ -96,7 +96,7 @@ void caculate(const char* inputs, int len) {
         int ans = doCal(one, mid, two);
         nums.push(ans);
     }
-    cout << "¾­¹ı¼ÆËã£¬½á¹ûÎª:" << nums.top() << endl;
+    cout << "ç»è¿‡è®¡ç®—ï¼Œç»“æœä¸º:" << nums.top() << endl;
 }
 
 
@@ -147,17 +147,17 @@ bool findMazePath(int **maze, int rowSize, int colSize) {
         } else {
             *((int*)maze + rowSize*here.row + here.col) = 9;
             if (path->isEmpty()) {
-                cout << "Ã»ÓĞÕıÈ·Â·¾¶×ß³ö¸ÃÃÔ¹¬!" << endl;
+                cout << "æ²¡æœ‰æ­£ç¡®è·¯å¾„èµ°å‡ºè¯¥è¿·å®«!" << endl;
                 return false;
             }
             Position next = path->pop();
-            if (next.row == here.row) option = next.col - here.col + 2; //ÅĞ¶Ïhere ÉÏÏÂ×óÓÒÎ»ÖÃ
+            if (next.row == here.row) option = next.col - here.col + 2; //åˆ¤æ–­here ä¸Šä¸‹å·¦å³ä½ç½®
             else option = next.row - here.row + 3;
             here = next;
         }
     }
 
-    cout << "³É¹¦×ß³öÃÔ¹¬£¡" << endl;
+    cout << "æˆåŠŸèµ°å‡ºè¿·å®«ï¼" << endl;
     for (int i = 1; i <= row; ++i) {
         for (int j = 1; j <= col; ++j) {
             cout << *((int*)maze + rowSize*i + j) << " ";
@@ -165,7 +165,7 @@ bool findMazePath(int **maze, int rowSize, int colSize) {
         cout << endl;
     }
 
-//    cout << endl << "ÃÔ¹¬Â·¾¶Îª£º" << endl;
+//    cout << endl << "è¿·å®«è·¯å¾„ä¸ºï¼š" << endl;
 //    cout << "(" << row << ", " << col << ")" << endl;
 //    while (!path->isEmpty()) {
 //        Position o = path->pop();
@@ -177,9 +177,9 @@ bool findMazePath(int **maze, int rowSize, int colSize) {
 void inputMazePath() {
     int rowSize;
     int colSize;
-    cout << "ÇëÊäÈëÃÔ¹¬µÄĞĞÊı£º";
+    cout << "è¯·è¾“å…¥è¿·å®«çš„è¡Œæ•°ï¼š";
     cin >> rowSize;
-    cout << "ÇëÊäÈëÃÔ¹¬µÄÁĞÊı£º";
+    cout << "è¯·è¾“å…¥è¿·å®«çš„åˆ—æ•°ï¼š";
     cin >> colSize;
 
     int row = rowSize;
@@ -208,8 +208,8 @@ void inputMazePath() {
 
 bool findMinPath(int **grid, Position start, Position end, int rowSize, int colSize) {
 
-    cout << "¿ªÊ¼Î»ÖÃ£º£¨" << start.row << "," << start.col << ")" << endl;
-    cout << "½áÊøÎ»ÖÃ£º£¨" << end.row << "," << end.col << ")" << endl;
+    cout << "å¼€å§‹ä½ç½®ï¼šï¼ˆ" << start.row << "," << start.col << ")" << endl;
+    cout << "ç»“æŸä½ç½®ï¼šï¼ˆ" << end.row << "," << end.col << ")" << endl;
     int row = rowSize - 2;
     int col = colSize - 2;
 
@@ -219,48 +219,69 @@ bool findMinPath(int **grid, Position start, Position end, int rowSize, int colS
     offset[2].row = 0; offset[2].col = -1;  //left
     offset[3].row = -1; offset[3].col = 0;  //up
 
-    Position here = start;
+    Position here, br;
+    here.row = start.row;
+    here.col = start.col;
     *((int*)grid + rowSize*here.row + here.col) = 2;
 
-    cout << "³õÊ¼»¯ºó" << *((int*)grid + rowSize*here.row + here.col) << endl;
+    cout << "åˆå§‹åŒ–å" << *((int*)grid + rowSize*here.row + here.col) << endl;
 
     int neibor = 4;
     ArrayQueue<Position> wait(row * col);
-    while (here.row != end.row && here.col != end.col) {
+    while (true) {
         for (int i = 0; i < neibor; ++i) {
             int r = here.row + offset[i].row;
             int c = here.col + offset[i].col;
+            br.row = r;
+            br.col = c;
 
-            if (*((int*)grid + rowSize*r + c) == 1) continue;
-            else if (*((int*)grid + rowSize*r + c) == 0)
+            if (*((int*)grid + rowSize*r + c) == 0)
             {
                 *((int*) grid + rowSize*r + c) = *((int *)grid + rowSize*here.row + here.col) + 1;
-            }
-            else if ((*((int*)grid + rowSize*here.row + here.col) + 1) < *((int*)grid + rowSize*r + c))
-            {
-                *((int*) grid + rowSize*r + c) = *((int *)grid + rowSize*here.row + here.col) + 1;
-            } else continue;
-
-            if (*((int*)grid + rowSize*r + c) != 1 && *((int*)grid + rowSize*r + c) != 0) {
                 Position in(r, c);
                 wait.push(in);
+                if (r == end.row && c == end.col) break;
             }
         }
 
+        if (br.row == end.row && br.col == end.col) break;
+
         if (wait.isEmpty()) {
-            cout << "´ÓÆğµãµ½ÖÕµãÃ»ÓĞÂ·¾¶" << endl;
+            cout << "ä»èµ·ç‚¹åˆ°ç»ˆç‚¹æ²¡æœ‰è·¯å¾„" << endl;
             return false;
         }
         here = wait.pop();
-        cout << "ÏÂÒ»¸öÊÇ£º" << "(" << here.row << "," << here.col << ")" << endl;
+        cout << "ä¸‹ä¸€ä¸ªæ˜¯ï¼š" << "(" << here.row << "," << here.col << ")" << endl;
     }
 
-    cout << "ÕÒµ½×î¶ÌÂ·¾¶" << endl;
+    cout << "æ‰¾åˆ°æœ€çŸ­è·¯å¾„" << endl;
     for (int j = 1; j <= row; ++j) {
         for (int i = 1; i <= col; ++i) {
-            cout << *((int *)grid + rowSize*i + j) << " ";
+            cout << *((int *)grid + rowSize*j + i) << " ";
         }
         cout << endl;
+    }
+
+    int pathLen = *((int *)grid + rowSize*end.row + end.col) - 2;
+    Position *path = new Position[pathLen];
+    here = end;
+    for (int k = pathLen-1; k >= 0; --k) {
+        path[k] = here;
+        for (int i = 0; i < neibor; ++i) {
+            int r = here.row + offset[i].row;
+            int c = here.col + offset[i].col;
+            br.row = r;
+            br.col = c;
+
+            if (*((int *)grid + rowSize*r + c) == k+2) break;
+        }
+        here = br;
+    }
+
+    cout << "ä¸‹é¢ä¸ºè·¯å¾„ï¼š" << endl;
+    cout << "(" << start.row << "," << start.col << ")" << " ";
+    for (int l = 0; l < pathLen; ++l) {
+        cout << "(" << path[l].row << "," << path[l].col << ")" << " ";
     }
 }
 

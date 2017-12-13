@@ -18,11 +18,11 @@ bool findMazePath(int **maze, int rowSize, int colSize);
 void mazePath();
 void inputMinPath(int **grid, int sx, int sy, int ex, int ey, int rowSize, int colSize);
 
-//ÊµÑéÒ»
+//å®žéªŒä¸€
 void testAllSort();
 void testChild();
 
-//ÊµÑé¶þ
+//å®žéªŒäºŒ
 void testSort() {
     int arr[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
     int len = sizeof(arr) / sizeof(arr[0]);
@@ -31,7 +31,7 @@ void testSort() {
     iSort->quickSort(arr, len);
 }
 
-//ÊµÑéÈý
+//å®žéªŒä¸‰
 void testChainList() {
     auto *list = new ChainList<int>();
 
@@ -48,7 +48,7 @@ void testChainList() {
     list->output(cout);
 }
 
-//ÊµÑéËÄ
+//å®žéªŒå››
 void testTridiagonalMatrix() {
     TridiagonalMatrix<int> matrix(5);
     int v = 66;
@@ -77,22 +77,29 @@ void testSparse() {
     matrix->store(0,1,v);
     matrix->store(0,0,v);
     matrix->output();
+
+    auto *a = new SparseMatrix<int>(5,5);
+    int q = 111;
+    a->store(3,4,q);
+    a->store(2,3,q);
+    a->store(1,2,q);
+    a->store(0,1,q);
+    a->store(0,0,q);
+    a->store(1,0,q);
     cout << "\n" << endl;
+    cout << "ç¨€ç–çŸ©é˜µç›¸åŠ " << endl;
+    a->output();
+    cout << endl;
+    matrix->output();
+    cout << endl;
+    matrix->add(*a);
+    matrix->output();
+
+    cout << "\n" << endl;
+    cout << "è½¬ç½®" << endl;
     matrix->transpose();
     matrix->output();
 
-//    auto *a = new SparseMatrix<int>(5,5);
-//    int q = 111;
-//    a->store(3,4,q);
-//    a->store(2,3,q);
-//    a->store(1,2,q);
-//    a->store(0,1,q);
-//    a->store(0,0,q);
-//    a->store(1,0,q);
-//
-//    matrix->add(*a);
-//    cout << "\n" << endl;
-//    matrix->output();
 }
 void testLinearHash() {
     LinearHashTable<int> table(916);
@@ -100,14 +107,14 @@ void testLinearHash() {
         table.insert(i*32, i+1);
     }
 
-    cout << table.find(32)->value << endl;
+    cout << table.find(64)->value << endl;
 }
 
-//ÊµÑéÎå
+//å®žéªŒäº”
 void testCal() {
     char inp[] = "2+3*(4+5*2)-6/3";
     int len = (sizeof(inp) / sizeof(inp[0])) - 1;
-//    cout << "¼ÆËã±í´ïÊ½³¤¶ÈÎª£º" << len << endl;
+//    cout << "è®¡ç®—è¡¨è¾¾å¼é•¿åº¦ä¸ºï¼š" << len << endl;
     caculate(inp, len);
 }
 void testFindMazePath() {
@@ -149,7 +156,7 @@ void testFindMinPath() {
     inputMinPath((int**)mz, 2,1, 5,3, 12, 12);
 }
 
-//ÊµÑéÁù
+//å®žéªŒå…­
 void testBinaryTree() {
     BTNode<int> *one = new BTNode<int>(1);
     BTNode<int> *two = new BTNode<int>(2);
@@ -164,22 +171,26 @@ void testBinaryTree() {
     thr->leftChild = six;
 
     BinaryTree<int> tree(one);
-    cout << "Ç°Ðò±éÀú½á¹ûÎª£º";tree.preOrder(one);
+    cout << "å‰åºéåŽ†ç»“æžœä¸ºï¼š";tree.preOrder(one);
     cout << endl;
 
-    cout << "ÖÐÐò±éÀú½á¹ûÎª£º";tree.inOrder(one);
+    cout << "ä¸­åºéåŽ†ç»“æžœä¸ºï¼š";tree.inOrder(one);
     cout << endl;
 
-    cout << "ºóÐò±éÀú½á¹ûÎª£º";tree.postOrder(one);
+    cout << "åŽåºéåŽ†ç»“æžœä¸ºï¼š";tree.postOrder(one);
     cout << endl;
 
-    cout << "²ã´Î±éÀú½á¹ûÎª£º";tree.levelOrder(one);
+    cout << "å±‚æ¬¡éåŽ†ç»“æžœä¸ºï¼š";tree.levelOrder(one);
     cout << endl;
 
-    cout << "¶þ²æÊ÷½Úµã¸öÊý£º" << tree.getSize(one) << endl;
+    cout << "äºŒå‰æ ‘èŠ‚ç‚¹ä¸ªæ•°ï¼š" << tree.getSize(one) << endl;
 
-    cout << "¶þ²æÊ÷¸ß¶È£º" << tree.getHeight(one) << endl;
+    cout << "äºŒå‰æ ‘é«˜åº¦ï¼š" << tree.getHeight(one) << endl;
 
+    cout << "èŽ·å¾—åŽåºéåŽ†:";
+    char pre[] = {'1','2','4','5','3','6'};
+    char in[] = {'4','2','5','1','6','3'};
+    tree.getPostFromPreAndIn(pre, in, 6);
 }
 void testArrayStack() {
     ArrayStack<int> stack(20);
@@ -206,6 +217,36 @@ void testArrayQueue() {
     }
 }
 int main() {
+    cout << "ä¸‹ä¸‰è§’çŸ©é˜µï¼š" << endl;
+    testLow();
+    cout << endl;
+
+    cout << "ä¸‰å¯¹è§’çŸ©é˜µï¼š" << endl;
+    testTridiagonalMatrix();
+    cout << endl;
+
+    cout << "ç¨€ç–çŸ©é˜µï¼š" << endl;
+    testSparse();
+    cout << endl;
+
+    cout << "æ•£åˆ—è¡¨ï¼š" << endl;
+    testLinearHash();
+    cout << endl;
+
+    cout << "è®¡ç®—è¡¨è¾¾å¼ï¼š" << endl;
+    testCal();
+    cout << endl;
+
+    cout << "è¿·å®«è·¯å¾„ï¼š" << endl;
+    testFindMazePath();
+    cout << endl;
+
+    cout << "ç”µè·¯å¸ƒçº¿ï¼š" << endl;
     testFindMinPath();
+    cout << endl << endl;
+
+    cout << "äºŒå‰æ ‘ï¼š" << endl;
+    testBinaryTree();
+    cout << endl;
     return 0;
 }

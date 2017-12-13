@@ -99,6 +99,22 @@ public:
         int sr = getSize(t->rightChild);
         return sl + sr + 1;
     }
+
+    void getPostFromPreAndIn(char *pre, char *in, int len) {
+
+        if(len == 0) return;
+
+        BTNode<char> *node = new BTNode<char>;
+        node->element = *pre;
+        int rootIndex = 0;
+        for (; rootIndex < len; ++rootIndex) {
+            if (in[rootIndex] == *pre) break;
+        }
+
+        getPostFromPreAndIn(pre+1, in, rootIndex);
+        getPostFromPreAndIn(pre+rootIndex+1, in+rootIndex+1, len-rootIndex-1);
+        cout << node->element << " ";
+    }
 private:
     BTNode<T> *root;
 };
