@@ -1,39 +1,35 @@
 #include <iostream>
 #include "list/linear_list.h"
 #include "list/array_list.h"
-#include "./experments/two.h"
+#include "experments/sort.h"
 #include "./list/chain_list.h"
 #include "./matrix/tridiagonal_matrix.h"
 #include "./matrix/lowdiagonal_matrix.h"
 #include "matrix/sparse_matrix.h"
 #include "stack/arrayStack.h"
 #include "dict/hash_table.h"
+#include "queue/array_queue.h"
 
 using namespace std;
+
 void caculate(const char* inputs, int len);
+bool findMazePath(int **maze, int rowSize, int colSize);
 void mazePath();
 
-void testLow() {
-    LowdiagonalMatrix<int> matrix(5);
-    int v = 99;
-    matrix.store(0, 0, v);
-    matrix.store(1, 1, v);
-    matrix.store(2, 2, v);
-    matrix.store(3, 3, v);
-    matrix.store(4, 4, v);
-    matrix.output();
+//实验一
+void testAllSort();
+void testChild();
+
+//实验二
+void testSort() {
+    int arr[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
+    int len = sizeof(arr) / sizeof(arr[0]);
+
+    auto *iSort = new Sorts<int>();
+    iSort->quickSort(arr, len);
 }
 
-void testTridiagonalMatrix() {
-    TridiagonalMatrix<int> matrix(5);
-    int v = 66;
-    matrix.store(0,0,v);
-    matrix.store(0,1,v);
-    matrix.store(1,0,v);
-    matrix.store(3,3,v);
-    matrix.output();
-}
-
+//实验三
 void testChainList() {
     auto *list = new ChainList<int>();
 
@@ -50,44 +46,26 @@ void testChainList() {
     list->output(cout);
 }
 
-//void testArrayList() {
-//    //浣跨敤鏋勯�犳柟娉曟瀯閫犱袱涓猯ist
-//    auto list1 = new ArrayList<int>(11);
-//    ArrayList<double> list2(50);
-//
-//    //浣跨敤缂虹渷鍊兼瀯閫爈ist
-//    ArrayList<long> list3;
-//
-//    //浣跨敤澶嶅埗鏋勯�犳柟娉曟瀯閫爈ist
-//    ArrayList<long> list4(list3);
-//
-//    ArrayList<int> one(10);
-//    ArrayList<int> two(55);
-//
-//    two.append(0);
-//    for (int i = 0; i < 10; ++i) {
-//        one.append(2*i);
-//        two.append(2*i+1);
-//    }
-//    two.append(55);
-//
-//    ArrayList<int> three = one.merge(one, two);
-//    for (int j = 0; j < three.getLength(); ++j) {
-//        cout << three.get(j) << endl;
-//    }
-//
-//    for (int i = 0; i < 11; ++i) {
-//        list1->append(i);
-//    }
-//    for (int j = 0; j < 11; ++j) {
-//        cout << list1->get(j) << endl;
-//    }
-//    list1->reverse();
-//    for (int k = 0; k < 11; ++k) {
-//        cout << list1->get(k) << endl;
-//    }
-//}
-
+//实验四
+void testTridiagonalMatrix() {
+    TridiagonalMatrix<int> matrix(5);
+    int v = 66;
+    matrix.store(0,0,v);
+    matrix.store(0,1,v);
+    matrix.store(1,0,v);
+    matrix.store(3,3,v);
+    matrix.output();
+}
+void testLow() {
+    LowdiagonalMatrix<int> matrix(5);
+    int v = 99;
+    matrix.store(0, 0, v);
+    matrix.store(1, 1, v);
+    matrix.store(2, 2, v);
+    matrix.store(3, 3, v);
+    matrix.store(4, 4, v);
+    matrix.output();
+}
 void testSparse() {
     auto *matrix = new SparseMatrix<int>(5,5);
     int v = 666;
@@ -114,6 +92,60 @@ void testSparse() {
 //    cout << "\n" << endl;
 //    matrix->output();
 }
+void testLinearHash() {
+    LinearHashTable<int> table(916);
+    for (int i = 1; i <= 500; ++i) {
+        table.insert(i*32, i+1);
+    }
+
+    cout << table.find(32)->value << endl;
+}
+
+//实验五
+void testCal() {
+    char inp[] = "2+3*(4+5*2)-6/3";
+    int len = (sizeof(inp) / sizeof(inp[0])) - 1;
+//    cout << "计算表达式长度为：" << len << endl;
+    caculate(inp, len);
+}
+void testFindMazePath() {
+    int mz[12][12] =
+            {
+                    {1,1,1,1,1,1,1,1,1,1,1,1},
+                    {1,0,1,1,1,1,1,0,0,0,0,1},
+                    {1,0,0,0,0,0,1,0,1,0,0,1},
+                    {1,0,0,0,1,0,1,0,0,0,0,1},
+                    {1,0,1,0,1,0,1,0,1,1,0,1},
+                    {1,0,1,0,1,0,1,0,1,0,0,1},
+                    {1,0,1,1,1,0,1,0,1,0,1,1},
+                    {1,0,1,0,0,0,1,0,1,0,1,1},
+                    {1,0,1,0,1,1,1,0,1,0,0,1},
+                    {1,1,0,0,0,0,0,0,1,0,0,1},
+                    {1,0,0,0,0,1,1,1,1,0,0,1},
+                    {1,1,1,1,1,1,1,1,1,1,1,1}
+            };
+
+    findMazePath((int**)mz, 12, 12);
+}
+void testFindMinPath() {
+    int mz[12][12] =
+            {
+                    {1,1,1,1,1,1,1,1,1,1,1,1},
+                    {1,0,1,1,1,1,1,0,0,0,0,1},
+                    {1,0,0,0,0,0,1,0,1,0,0,1},
+                    {1,0,0,0,1,0,1,0,0,0,0,1},
+                    {1,0,1,0,1,0,1,0,1,1,0,1},
+                    {1,0,1,0,1,0,1,0,1,0,0,1},
+                    {1,0,1,1,1,0,1,0,1,0,1,1},
+                    {1,0,1,0,0,0,1,0,1,0,1,1},
+                    {1,0,1,0,1,1,1,0,1,0,0,1},
+                    {1,1,0,0,0,0,0,0,1,0,0,1},
+                    {1,0,0,0,0,1,1,1,1,0,0,1},
+                    {1,1,1,1,1,1,1,1,1,1,1,1}
+            };
+
+}
+
 
 void testArrayStack() {
     ArrayStack<int> stack(20);
@@ -127,32 +159,19 @@ void testArrayStack() {
     }
 }
 
-void testCal() {
-    char inp[] = "2+3*(4+5)-6/3";
-    int len = 13;
-    caculate(inp, len);
-}
-
-void testLinearHash() {
-    LinearHashTable<int> table(916);
-    for (int i = 1; i <= 500; ++i) {
-        table.insert(i*32, i+1);
+void testArrayQueue() {
+    ArrayQueue<int> queue(2);
+    queue.push(1);
+    queue.push(2);
+    queue.push(3);
+    queue.push(5);
+    queue.push(6);
+    while (!queue.isEmpty()) {
+        cout << queue.pop() << endl;
+        cout << queue.isEmpty() << endl;
     }
-
-    cout << table.find(32)->value << endl;
 }
 int main() {
-//    testChild();
-//    testAllSort();
-
-//    int arr[] = {54,43,22,112,3,82,7,9,77099,99,785,336};
-//    int len = sizeof(arr) / sizeof(arr[0]);
-//
-//    auto *iSort = new Sorts<int>();
-//    iSort->quickSort(arr, len);
-
+    testArrayQueue();
     return 0;
 }
-
-
-
