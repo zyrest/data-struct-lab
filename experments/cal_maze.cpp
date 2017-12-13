@@ -208,6 +208,8 @@ void inputMazePath() {
 
 bool findMinPath(int **grid, Position start, Position end, int rowSize, int colSize) {
 
+    cout << "开始位置：（" << start.row << "," << start.col << ")" << endl;
+    cout << "结束位置：（" << end.row << "," << end.col << ")" << endl;
     int row = rowSize - 2;
     int col = colSize - 2;
 
@@ -219,6 +221,9 @@ bool findMinPath(int **grid, Position start, Position end, int rowSize, int colS
 
     Position here = start;
     *((int*)grid + rowSize*here.row + here.col) = 2;
+
+    cout << "初始化后" << *((int*)grid + rowSize*here.row + here.col) << endl;
+
     int neibor = 4;
     ArrayQueue<Position> wait(row * col);
     while (here.row != end.row && here.col != end.col) {
@@ -226,12 +231,20 @@ bool findMinPath(int **grid, Position start, Position end, int rowSize, int colS
             int r = here.row + offset[i].row;
             int c = here.col + offset[i].col;
 
-            if (*((int *) grid + rowSize * r + c) == 0 ||
-                (*((int *) grid + rowSize * here.row + here.col) + 1 < *((int *) grid + rowSize * r + c)))
-                *((int *) grid + rowSize * r + c) = *((int *) grid + rowSize * here.row + here.col) + 1;
+            if (*((int*)grid + rowSize*r + c) == 1) continue;
+            else if (*((int*)grid + rowSize*r + c) == 0)
+            {
+                *((int*) grid + rowSize*r + c) = *((int *)grid + rowSize*here.row + here.col) + 1;
+            }
+            else if ((*((int*)grid + rowSize*here.row + here.col) + 1) < *((int*)grid + rowSize*r + c))
+            {
+                *((int*) grid + rowSize*r + c) = *((int *)grid + rowSize*here.row + here.col) + 1;
+            } else continue;
 
-            Position in(r, c);
-            wait.push(in);
+            if (*((int*)grid + rowSize*r + c) != 1 && *((int*)grid + rowSize*r + c) != 0) {
+                Position in(r, c);
+                wait.push(in);
+            }
         }
 
         if (wait.isEmpty()) {
@@ -239,13 +252,22 @@ bool findMinPath(int **grid, Position start, Position end, int rowSize, int colS
             return false;
         }
         here = wait.pop();
+        cout << "下一个是：" << "(" << here.row << "," << here.col << ")" << endl;
     }
 
     cout << "找到最短路径" << endl;
-    for (int j = 0; j < row; ++j) {
-        for (int i = 0; i < col; ++i) {
-            cout << *((int *) grid + rowSize * i + j) << " ";
+    for (int j = 1; j <= row; ++j) {
+        for (int i = 1; i <= col; ++i) {
+            cout << *((int *)grid + rowSize*i + j) << " ";
         }
         cout << endl;
     }
+}
+
+void inputMinPath(int **grid, int sx, int sy, int ex, int ey, int rowSize, int colSize) {
+
+    Position s(sx, sy);
+    Position e(ex, ey);
+
+    findMinPath(grid, s, e, rowSize, colSize);
 }

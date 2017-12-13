@@ -37,6 +37,10 @@ public:
         root = new BTNode<T>(r);
     }
 
+    explicit BinaryTree(BTNode<T>* r) {
+        root = r;
+    }
+
     void visit(BTNode<T> *x) {
         cout << x->element << " ";
     }

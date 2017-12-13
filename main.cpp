@@ -9,12 +9,14 @@
 #include "stack/arrayStack.h"
 #include "dict/hash_table.h"
 #include "queue/array_queue.h"
+#include "tree/binary_tree.h"
 
 using namespace std;
 
 void caculate(const char* inputs, int len);
 bool findMazePath(int **maze, int rowSize, int colSize);
 void mazePath();
+void inputMinPath(int **grid, int sx, int sy, int ex, int ey, int rowSize, int colSize);
 
 //实验一
 void testAllSort();
@@ -144,9 +146,41 @@ void testFindMinPath() {
                     {1,1,1,1,1,1,1,1,1,1,1,1}
             };
 
+    inputMinPath((int**)mz, 2,1, 5,3, 12, 12);
 }
 
+//实验六
+void testBinaryTree() {
+    BTNode<int> *one = new BTNode<int>(1);
+    BTNode<int> *two = new BTNode<int>(2);
+    BTNode<int> *thr = new BTNode<int>(3);
+    BTNode<int> *fou = new BTNode<int>(4);
+    BTNode<int> *fiv = new BTNode<int>(5);
+    BTNode<int> *six = new BTNode<int>(6);
+    one->leftChild = two;
+    one->rightChild = thr;
+    two->leftChild = fou;
+    two->rightChild = fiv;
+    thr->leftChild = six;
 
+    BinaryTree<int> tree(one);
+    cout << "前序遍历结果为：";tree.preOrder(one);
+    cout << endl;
+
+    cout << "中序遍历结果为：";tree.inOrder(one);
+    cout << endl;
+
+    cout << "后序遍历结果为：";tree.postOrder(one);
+    cout << endl;
+
+    cout << "层次遍历结果为：";tree.levelOrder(one);
+    cout << endl;
+
+    cout << "二叉树节点个数：" << tree.getSize(one) << endl;
+
+    cout << "二叉树高度：" << tree.getHeight(one) << endl;
+
+}
 void testArrayStack() {
     ArrayStack<int> stack(20);
     stack.pop();
@@ -172,6 +206,6 @@ void testArrayQueue() {
     }
 }
 int main() {
-    testArrayQueue();
+    testFindMinPath();
     return 0;
 }
