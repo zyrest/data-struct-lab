@@ -5,7 +5,9 @@
 #ifndef LEARN_BINARY_TREE_H
 #define LEARN_BINARY_TREE_H
 #include "iostream"
-#include "../queue/array_queue.h"
+#include "../queue/queue.h"
+#include "../list/list.h"
+
 using namespace std;
 
 template <class T>
@@ -28,11 +30,19 @@ struct BTNode {
         leftChild = left;
         rightChild = right;
     }
+
+    friend ostream& operator<< (ostream &os,BTNode<T> &node) {
+        os << "{" << node.element << "}";
+//        os <<", left={" << node.leftChild->element << "}, right={" << node.rightChild->element << "}";
+        return os;
+    }
 };
 
 template <class T>
 class BinaryTree {
 public:
+    BinaryTree() = default;
+
     explicit BinaryTree(const T& r) {
         root = new BTNode<T>(r);
     }
@@ -115,7 +125,27 @@ public:
         getPostFromPreAndIn(pre+rootIndex+1, in+rootIndex+1, len-rootIndex-1);
         cout << node->element << " ";
     }
-private:
+
+    void makeTree(const T& ele, BinaryTree<T>& left, BinaryTree<T>& right) {
+        root = new BTNode<T>(ele, left.root, right.root);
+
+        left.root = 0;
+        right.root = 0;
+    }
+
+    void huffmanOutput(BTNode<T> *t) {
+        if (t->element != 0) {
+            cout << "{" << t->element << "}"  << endl;
+            return;
+        }
+
+        cout << 0 << " ";
+        huffmanOutput(t->leftChild);
+
+        cout << 1 << " ";
+        huffmanOutput(t->rightChild);
+    }
+
     BTNode<T> *root;
 };
 #endif //LEARN_BINARY_TREE_H

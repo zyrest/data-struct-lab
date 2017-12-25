@@ -5,8 +5,7 @@
 #ifndef LEARN_SPARSE_MATRIX_H
 #define LEARN_SPARSE_MATRIX_H
 
-#include "../list/array_list.h"
-#include "../list/array_list.h"
+#include "../list/list.h"
 using namespace std;
 
 template <class T>

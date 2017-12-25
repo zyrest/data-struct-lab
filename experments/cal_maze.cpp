@@ -3,8 +3,8 @@
 //
 #include "iostream"
 #include "map"
-#include "../stack/arrayStack.h"
-#include "../queue/array_queue.h"
+#include "../stack/stack.h"
+#include "../queue/queue.h"
 
 using namespace std;
 

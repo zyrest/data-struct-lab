@@ -1,15 +1,16 @@
 #include <iostream>
-#include "list/linear_list.h"
-#include "list/array_list.h"
 #include "experments/sort.h"
-#include "./list/chain_list.h"
+#include "./list/list.h"
 #include "./matrix/tridiagonal_matrix.h"
 #include "./matrix/lowdiagonal_matrix.h"
 #include "matrix/sparse_matrix.h"
-#include "stack/arrayStack.h"
+#include "stack/stack.h"
 #include "dict/hash_table.h"
-#include "queue/array_queue.h"
+#include "queue/queue.h"
 #include "tree/binary_tree.h"
+#include "heap/heap.h"
+#include "tree/binary_search_tree.h"
+#include "graph/graph.h"
 
 using namespace std;
 
@@ -18,34 +19,51 @@ bool findMazePath(int **maze, int rowSize, int colSize);
 void mazePath();
 void inputMinPath(int **grid, int sx, int sy, int ex, int ey, int rowSize, int colSize);
 
+BinaryTree<int>* buildHuffmanTree(int weight[], int n);
+
 //实验一
 void testAllSort();
 void testChild();
 
 //实验二
 void testSort() {
-    int arr[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
-    int len = sizeof(arr) / sizeof(arr[0]);
-
     auto *iSort = new Sorts<int>();
-    iSort->quickSort(arr, len);
+
+    int arr1[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
+    int len = sizeof(arr1) / sizeof(arr1[0]);
+    iSort->selectSort(arr1, len);
+
+    int arr2[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
+    iSort->bubbleSort(arr2, len);
+
+    int arr3[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
+    iSort->insertSort(arr3, len);
+
+    int arr4[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
+    iSort->basisSort(arr4, 5, len);
+
+    int arr5[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
+    iSort->quickSort(arr5, len);
+
+    int arr6[] = {54, 43, 22, 112, 3, 82, 7, 9, 77099, 99, 785, 336};
+    iSort->mergeSort(arr6, len);
 }
 
 //实验三
 void testChainList() {
-    auto *list = new ChainList<int>();
-
-    list->append(0);
-    for (int i = 0; i < 10; ++i) {
-        list->append(2*i);
-    }
-    list->append(55);
-
-    int& a = list->get(0);
-    a = 88;
-
-    list->reverse();
-    list->output(cout);
+//    auto *list = new ChainList<int>();
+//
+//    list->append(0);
+//    for (int i = 0; i < 10; ++i) {
+//        list->append(2*i);
+//    }
+//    list->append(55);
+//
+//    int& a = list->get(0);
+//    a = 88;
+//
+//    list->reverse();
+//    list->output(cout);
 }
 
 //实验四
@@ -203,20 +221,7 @@ void testArrayStack() {
         cout << stack.pop() << endl;
     }
 }
-
-void testArrayQueue() {
-    ArrayQueue<int> queue(2);
-    queue.push(1);
-    queue.push(2);
-    queue.push(3);
-    queue.push(5);
-    queue.push(6);
-    while (!queue.isEmpty()) {
-        cout << queue.pop() << endl;
-        cout << queue.isEmpty() << endl;
-    }
-}
-int main() {
+void testFourFiveSix() {
     cout << "下三角矩阵：" << endl;
     testLow();
     cout << endl;
@@ -248,5 +253,103 @@ int main() {
     cout << "二叉树：" << endl;
     testBinaryTree();
     cout << endl;
+}
+
+//实验七
+void testMaxHeap() {
+    cout << "测试最大堆类（插入，删除，初始化）：" << endl;
+    MaxHeap<int> heap(20);
+    heap.push(123);
+    heap.push(234);
+    heap.push(233);
+    heap.push(901);
+    heap.push(1);
+    heap.push(6);
+    heap.push(666);
+
+    cout << "层次遍历当前最大堆：" << endl;
+    heap.output();
+    cout << endl;
+    cout << "依次取出堆顶元素：" << endl;
+    while (!heap.isEmpty()) {
+        cout << heap.pop() << " ";
+    }
+
+    cout << "初始化最大堆：" << endl;
+    int arr[] = {0,12,323,421,5435,2,33,99};
+    heap.initialize(arr, 7);
+    cout << "层次遍历初始化后的堆：" << endl;
+    heap.output();
+    cout << endl;
+    cout << "依次取出初始化后的堆顶元素：" << endl;
+    while (!heap.isEmpty()) {
+        cout << heap.pop() << " ";
+    }
+    cout << endl;
+}
+void testHuffman() {
+    cout << "测试霍夫曼树：" << endl;
+    int arr[] = {3,12,323,421,5435,2,33,99};
+
+    BinaryTree<int> *tree = buildHuffmanTree(arr, 7);
+    tree->huffmanOutput(tree->root);
+}
+void testSearchTree() {
+    cout << "测试二叉搜索树：" << endl;
+    BinarySearchTree<int, int> bTree;
+    bTree.push(1, 5);
+    bTree.push(2, 10);
+    bTree.push(3, 15);
+    bTree.push(4, 22);
+
+    cout << bTree.find(4) << " " << bTree.find(0) << endl;
+}
+void testHeapSort() {
+    cout << "测试堆排序：" << endl;
+    cout << "原数组为：{6,122,323,421,5435,234,0,99}" << endl;
+    int arr[] = {-1,6,122,323,421,5435,234,0,99};
+    int len = sizeof(arr) / sizeof(arr[0]);
+
+    MinHeap<int> heap(len);
+    heap.initialize(arr, len-1);
+    int ans[len];
+    cout << "排序结果为：" << endl;
+    for (int i = 1; i < len; ++i) {
+        ans[i] = heap.pop();
+        cout << ans[i] << " ";
+    }
+    cout << endl;
+}
+
+//实验八
+void testGraph() {
+    int n = 5;
+    LinkedGraph g(n);
+
+    Edge a(1,2);
+    g.addEdge(a);
+
+    a.i = 2; a.j = 3;
+    g.addEdge(a);
+
+    a.i = 2; a.j = 4;
+    g.addEdge(a);
+
+    a.i = 1; a.j = 5;
+    g.addEdge(a);
+
+    int reach[n+1];
+    for (int &i : reach) i = 0;
+    int label = 99;
+
+    g.dfsGTree();
+//    g.dfs(1, reach, label);
+//    for (int j = 1; j <= n; ++j) {
+//        cout << reach[j] << " ";
+//    }
+
+}
+int main() {
+    testGraph();
     return 0;
 }
