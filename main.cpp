@@ -1,15 +1,12 @@
 #include <iostream>
 #include "experments/sort.h"
 #include "./list/list.h"
-#include "./matrix/tridiagonal_matrix.h"
-#include "./matrix/lowdiagonal_matrix.h"
-#include "matrix/sparse_matrix.h"
+#include "./matrix/matrix.h"
 #include "stack/stack.h"
 #include "dict/hash_table.h"
 #include "queue/queue.h"
-#include "tree/binary_tree.h"
+#include "tree/tree.h"
 #include "heap/heap.h"
-#include "tree/binary_search_tree.h"
 #include "graph/graph.h"
 
 using namespace std;
@@ -18,8 +15,9 @@ void caculate(const char* inputs, int len);
 bool findMazePath(int **maze, int rowSize, int colSize);
 void mazePath();
 void inputMinPath(int **grid, int sx, int sy, int ex, int ey, int rowSize, int colSize);
-
 BinaryTree<int>* buildHuffmanTree(int weight[], int n);
+
+void prim(int start);
 
 //实验一
 void testAllSort();
@@ -274,6 +272,7 @@ void testMaxHeap() {
     while (!heap.isEmpty()) {
         cout << heap.pop() << " ";
     }
+    cout << "\n" << endl;
 
     cout << "初始化最大堆：" << endl;
     int arr[] = {0,12,323,421,5435,2,33,99};
@@ -285,24 +284,62 @@ void testMaxHeap() {
     while (!heap.isEmpty()) {
         cout << heap.pop() << " ";
     }
-    cout << endl;
+    cout << "\n" << endl;
 }
 void testHuffman() {
     cout << "测试霍夫曼树：" << endl;
     int arr[] = {3,12,323,421,5435,2,33,99};
 
+
     BinaryTree<int> *tree = buildHuffmanTree(arr, 7);
-    tree->huffmanOutput(tree->root);
+    int base[10];
+    for (int &i : base) i = -1;
+    cout << "霍夫曼编码为：" << endl;
+    tree->huffmanOutput(tree->root, base, 0);
+    cout << "\n" << endl;
 }
 void testSearchTree() {
     cout << "测试二叉搜索树：" << endl;
+    cout << "插入：(1,5),(2,10),(3,7),(4,99)," << endl;
     BinarySearchTree<int, int> bTree;
     bTree.push(1, 5);
     bTree.push(2, 10);
-    bTree.push(3, 15);
-    bTree.push(4, 22);
+    bTree.push(3, 7);
+    bTree.push(4, 99);
 
-    cout << bTree.find(4) << " " << bTree.find(0) << endl;
+    cout << "查找key=4，key=0(不存在):";
+    cout << "key=4,value=" << bTree.find(4) << " | key=0,value=" << bTree.find(0) << endl;
+    cout << "\n" << endl;
+}
+void testInputTree() {
+    cout << "请输入5个随机数字：" << endl;
+    int input[6];
+    input[0] = 0;
+    for (int i = 1; i <= 5; ++i) {
+        cout << "第" << i << "个数字：";
+        cin >> input[i];
+    }
+
+    cout << "构造一个最大堆：" << endl;
+    MaxHeap<int> heap(20);
+    heap.initialize(input, 5);
+    cout << "最大堆在数组中的结构为：";
+    heap.output();
+    cout << endl;
+
+    cout << "构造一棵霍夫曼树：" << endl;
+    BinaryTree<int> *htree = buildHuffmanTree(input, 6);
+    cout << "霍夫曼编码为：" << endl;
+    int base[10];
+    for (int &i : base) i = -1;
+    htree->huffmanOutput(htree->root, base, 0);
+
+    cout << "构造一棵二叉搜索树(以下标为key，输入数据为value)：" << endl;
+    BinarySearchTree<int, int> bTree;
+    for (int j = 1; j <= 5; ++j) {
+        bTree.push(j, input[j]);
+    }
+    cout << "查找第3个" << bTree.find(3) << endl;
 }
 void testHeapSort() {
     cout << "测试堆排序：" << endl;
@@ -318,14 +355,16 @@ void testHeapSort() {
         ans[i] = heap.pop();
         cout << ans[i] << " ";
     }
-    cout << endl;
+    cout << "\n" << endl;
 }
 
 //实验八
 void testGraph() {
-    int n = 5;
+    cout << "测试有向图(使用链表描述)：" << endl;
+    int n = 7;
     LinkedGraph g(n);
 
+    cout << "添加边：(1,2),(2,3),(2,4),(1,5),(4,7),(5,4),(3,6)" << endl;
     Edge a(1,2);
     g.addEdge(a);
 
@@ -338,18 +377,52 @@ void testGraph() {
     a.i = 1; a.j = 5;
     g.addEdge(a);
 
+    a.i = 4; a.j = 7;
+    g.addEdge(a);
+
+    a.i = 5; a.j = 4;
+    g.addEdge(a);
+
+    a.i = 3; a.j = 6;
+    g.addEdge(a);
+
+    cout << "使用bfs遍历(起点label为100，每访问一个点加一):";
     int reach[n+1];
     for (int &i : reach) i = 0;
-    int label = 99;
+    int label = 100;
+    g.bfs(1, reach, label);
+    for (int j = 1; j <= n; ++j) {
+        cout << reach[j] << " ";
+    }
+    cout << endl;
 
+    cout << "使用dfs遍历(起点label为100，每访问一个点加一):";
+    for (int &i : reach) i = 0;
+    g.dfs(1, reach, label);
+    for (int j = 1; j <= n; ++j) {
+        cout << reach[j] << " ";
+    }
+    cout << endl;
+
+    cout << "图的生成树为(描述边)：" << endl;
     g.dfsGTree();
-//    g.dfs(1, reach, label);
-//    for (int j = 1; j <= n; ++j) {
-//        cout << reach[j] << " ";
-//    }
-
+    cout << "\n" << endl;
 }
-int main() {
+
+
+void testSevenEight() {
+    testMaxHeap();
+    testHuffman();
+    testSearchTree();
+    testHeapSort();
+
+    cout << "\n" << endl;
+
     testGraph();
+}
+int testMinTree();
+
+int main() {
+    testMinTree();
     return 0;
 }
